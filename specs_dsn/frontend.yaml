@@ -22,12 +22,19 @@ dsn_params:
     impl_lib: AAA_DSN_FRONTEND
     impl_cell: aib_frontend
     root_dir: gen_outputs/aib_frontend
+    gen_lib: True
+    lib_specs:
+      lib_file: 'data/aib_ams/specs_ip/frontend_lib.yaml'
+    lib_args:
+      extract: False
   gen_cell_args:
     gen_lay: True
     gen_sch: True
     gen_model: True
     run_lvs: True
     gen_lef: True
+    raw: True
+
   tile_name: logic
   stack_max: 10
   tile_specs:

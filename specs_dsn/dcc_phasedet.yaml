@@ -23,12 +23,47 @@ dsn_params:
     impl_lib: AAA_DSN_PHASEDET_FINAL
     impl_cell: aib_phasedet_final
     root_dir: gen_outputs/dsn_phasedet_final
+    gen_lib: True
+    lib_specs:
+      lib_file: 'data/aib_ams/specs_ip/dcc_phase_det_lib.yaml'
+    lib_args:
+      extract: False
+    model_params:
+      XDUMD: {view_name: ''}
+      XDUMU: {view_name: ''}
+      XFLOPD:
+        XSA: {view_name: ''}
+        XSR:
+          XCORE: {view_name: ''}
+          XIBUF<1:0>: {view_name: ''}
+          XOBUF<1:0>: {view_name: ''}
+      XFLOPU:
+        XSA: {view_name: ''}
+        XSR:
+          XCORE: {view_name: ''}
+          XIBUF<1:0>: {view_name: ''}
+          XOBUF<1:0>: {view_name: ''}
+      XSED:
+        XINVN0: {view_name: ''}
+        XINVN1: {view_name: ''}
+        XINVN2: {view_name: ''}
+        XINVP0: {view_name: ''}
+        XINVP1: {view_name: ''}
+        XPASS: {view_name: ''}
+      XSEU:
+        XINVN0: {view_name: ''}
+        XINVN1: {view_name: ''}
+        XINVN2: {view_name: ''}
+        XINVP0: {view_name: ''}
+        XINVP1: {view_name: ''}
+        XPASS: {view_name: ''}
   gen_cell_args:
     gen_lay: True
     gen_sch: True
     gen_model: True
     run_lvs: True
     gen_lef: True
+
   dig_tran_specs:
     sim_envs: ['tt_25']
     sim_params:

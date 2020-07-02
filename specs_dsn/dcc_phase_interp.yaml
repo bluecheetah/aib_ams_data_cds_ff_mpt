@@ -35,12 +35,17 @@ dsn_params:
   tbit: 1.0e-9
   trf: 20.0e-12
   cload: 5.0e-15
-  plot_result: True
+  plot_result: False
   dsn_monte_carlo: False
   gen_cell_specs:
     impl_lib: AAA_phaseinterp
     impl_cell: AA_PhaseInterpWithDelay
-    root_dir: gen_outputs/PhaseInterpWithDelay
+    root_dir: gen_outputs/dcc_phase_interp_final
+    gen_lib: True
+    lib_specs:
+      lib_file: 'data/aib_ams/specs_ip/dcc_phase_interp_lib.yaml'
+    lib_args:
+      extract: False
     model_params:
       XDC:
         XNAND_SR0: {view_name: '', delay: 20}
@@ -61,6 +66,8 @@ dsn_params:
     gen_model: True
     run_lvs: True
     gen_lef: True
+    raw: True
+
 
   # Monte Carlo setup
   mc_params:

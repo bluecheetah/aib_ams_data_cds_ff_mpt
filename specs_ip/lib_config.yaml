@@ -37,12 +37,12 @@ environments:
 lut:
   CONSTRAINT:
     # constrained pin transition
-    trf_in: [20.0e-12, 40.0e-12, 160.0e-12]
+    trf_in: [40.0e-12, 80.0e-12, 320.0e-12]
     # related pin transition
-    trf_src: [20.0e-12, 40.0e-12, 160.0e-12]
+    trf_src: [40.0e-12, 80.0e-12, 320.0e-12]
   DELAY:
     # input net transition
-    trf_src: [20.0e-12, 60.0e-12, 120.0e-12]
+    trf_src: [40.0e-12, 80.0e-12, 320.0e-12]
     # total output net capacitance
     cload: [1.0e-15, 10.0e-15, 40.0e-15]
   MAX_CAP:
@@ -50,16 +50,16 @@ lut:
     freq: [50.0e6, 400.0e6, 1.6e9]
   DRIVE_WVFM:
     # input net transition
-    trf_src: [20.0e-12, 40.0e-12, 160.0e-12]
+    trf_src: [40.0e-12, 80.0e-12, 320.0e-12]
     # normalized voltage
     vout: [0.0, 0.5, 1.0]
 
 norm_drv_wvfm:
   - name: "driver_waveform"
     val:
-      - [0, 10.0e-12, 20.0e-12]
       - [0, 20.0e-12, 40.0e-12]
-      - [0, 80.0e-12, 160.0e-12]
+      - [0, 40.0e-12, 80.0e-12]
+      - [0, 160.0e-12, 320.0e-12]
 
 thresholds:
   slew_derate: 1
@@ -80,4 +80,4 @@ defaults:
   input_pin_cap: 0
   output_pin_cap: 0
   leakage_power_density: 0
-  max_transition: 5.0e-9
+  max_transition: 10.0e-9

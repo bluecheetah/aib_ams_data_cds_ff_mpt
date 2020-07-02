@@ -1,0 +1,192 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2020 Blue Cheetah Analog Design Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+impl_lib: DCC_PHASEDET
+impl_cell: dcc_phasedet
+netlist_file: gen_outputs/ip_blocks/dcc_phasedet/schematic.net
+root_dir: gen_outputs/ip_blocks/dcc_phasedet
+
+lay_class: aib_ams.layout.phase_det.PhaseDetector
+
+params:
+    pinfo:
+      tiles:
+        - name: logic
+        - name: logic
+          flip: True
+        - name: strongarm
+        - name: sr
+          flip: True
+      tile_specs:
+        arr_info:
+          lch: 36
+          top_layer: 5
+          tr_widths:
+            sup: {2: 2, 3: 2, 4: 2, 5: 2}
+          tr_spaces:
+            !!python/tuple ['sig_hs', '']: {3: 1, 4: 1}
+
+        place_info:
+          logic:
+            row_specs:
+              - mos_type: nch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data: [sup, 'sig<0:1>']
+                  shared: [sup]
+                top_wires: ['sig<0:1>']
+                flip: True
+              - mos_type: pch
+                width: 4
+                threshold: lvt
+                bot_wires: ['sig<0:1>']
+                top_wires:
+                  data: ['sig<0:1>', sup]
+                  shared: [sup]
+          sr:
+            row_specs:
+              - mos_type: nch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data: [sup, 'sig<0:1>']
+                  shared: [sup]
+                top_wires: ['sig<0>', 'sig_hs<0:1>', 'sig<1>']
+                flip: True
+              - mos_type: pch
+                width: 4
+                threshold: lvt
+                bot_wires: ['sig<0:1>']
+                top_wires:
+                  data: ['sig<0:1>', sup]
+                  shared: [sup]
+          strongarm:
+            bot_mirror: False
+            top_mirror: False
+            row_specs:
+              - mos_type: nch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data:
+                    - wires: ['sup', 'tail']
+                    - wires: ['sup', 'sig']
+                  shared: [sup]
+                top_wires:
+                  data:
+                    - wires: ['sig<0:1>']
+                flip: True
+              - mos_type: nch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data:
+                    - wires: ['sig']
+                top_wires:
+                  data:
+                    - wires: [['sig<0:2>', G_MATCH]]
+                flip: True
+              - mos_type: nch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data:
+                    - wires: ['sig']
+                top_wires:
+                  data:
+                    - wires: ['sig<0:1>', ['sig<2>', DS_MATCH]]
+              - mos_type: pch
+                width: 4
+                threshold: lvt
+                bot_wires:
+                  data:
+                    - wires: [['sig<0>', DS_MATCH], 'sig<1:2>']
+                top_wires:
+                  data:
+                    - wires: ['sig<0:1>', 'sup']
+                  shared: [sup]
+                flip: True
+
+        abut_list:
+          - edges: [[sr, 1], [strongarm, 1]]
+            shared1: [sup]
+            shared2: [sup]
+          - edges: [[logic, 0], [strongarm, 0]]
+            shared1: [sup]
+            shared2: [sup]
+
+    se_params:
+      invp_params_list:
+        - seg: 2
+        - seg: 8
+      invn_params_list:
+        - seg: 2
+        - seg: 4
+        - seg: 6
+      pg_params:
+        seg: 4
+    flop_params:
+      sa_params:
+        seg_dict:
+          in: 2
+          nfb: 4
+          pfb: 4
+          tail: 4
+          sw: 1
+        has_bridge: True
+      sr_params:
+        seg_dict:
+          fb: 1
+          ps: 2
+          nr: 2
+          ibuf: 2
+          obuf: 2
+          rst: 2
+        has_outbuf: True
+      has_rstlb: True
+    inv_params:
+      seg_p: 6
+      seg_n: 4
+
+model_params:
+  XDUMD: {view_name: ''}
+  XDUMU: {view_name: ''}
+  XFLOPD:
+    XSA: {view_name: ''}
+    XSR:
+      XCORE: {view_name: ''}
+      XIBUF<1:0>: {view_name: ''}
+      XOBUF<1:0>: {view_name: ''}
+  XFLOPU:
+    XSA: {view_name: ''}
+    XSR:
+      XCORE: {view_name: ''}
+      XIBUF<1:0>: {view_name: ''}
+      XOBUF<1:0>: {view_name: ''}
+  XSED:
+    XINVN0: {view_name: ''}
+    XINVN1: {view_name: ''}
+    XINVN2: {view_name: ''}
+    XINVP0: {view_name: ''}
+    XINVP1: {view_name: ''}
+    XPASS: {view_name: ''}
+  XSEU:
+    XINVN0: {view_name: ''}
+    XINVN1: {view_name: ''}
+    XINVN2: {view_name: ''}
+    XINVP0: {view_name: ''}
+    XINVP1: {view_name: ''}
+    XPASS: {view_name: ''}

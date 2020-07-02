@@ -1,0 +1,166 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2020 Blue Cheetah Analog Design Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+impl_lib: DLL_Delay_Line
+impl_cell: dll_delay_line
+root_dir: gen_outputs/ip_blocks/dll_delay_line
+model_supply_wrap_mode: TOP
+model_type: VERILOG
+name_prefix: 'dll_dlyline64_'
+name_suffix: ''
+exact_cell_names: [dll_dlyline64]
+
+lay_class: xbase.layout.mos.top.GenericWrapper
+
+params:
+  cls_name: aib_ams.layout.delay_line.DelayLine
+  params:
+    pinfo:
+      tiles:
+        - name: ptap_tile
+        - name: logic_tile
+        - name: ntap_tile
+        - name: logic_tile
+          flip: True
+      tile_specs:
+        arr_info:
+          lch: 36
+          top_layer: 3
+          tr_widths:
+            sup: {2: 8, 3: 8, 4: 16}
+            sig: {2: 1, 3: 1, 4: 1}
+          tr_spaces:
+            !!python/tuple ['sup', '']: {3: 0, 4: 0}
+          ridx_n: 0
+          ridx_p: -1
+
+        place_info:
+          ptap_tile:
+            priority: 2
+            bot_mirror: False
+            top_mirror: False
+            row_specs:
+              - mos_type: ptap
+                width: 2
+                threshold: standard
+                bot_wires: []
+                top_wires:
+                  data: [sup]
+          logic_tile:
+            priority: 1
+            bot_mirror: False
+            top_mirror: False
+            row_specs:
+              - mos_type: nch
+                width: 4
+                threshold: standard
+                bot_wires: ['sig<0:1>']
+                top_wires: ['sig<0:1>']
+                flip: True
+              - mos_type: pch
+                width: 4
+                threshold: standard
+                bot_wires: ['sig<0:1>']
+                top_wires: ['sig<0:1>']
+          ntap_tile:
+            priority: 2
+            bot_mirror: False
+            top_mirror: False
+            row_specs:
+              - mos_type: ntap
+                width: 2
+                threshold: standard
+                bot_wires: []
+                top_wires:
+                  data: [sup]
+
+        abut_list:
+          - [[ptap_tile, 1], [logic_tile, 0]]
+          - [[logic_tile, 1], [ntap_tile, 0]]
+          - [[ntap_tile, 1], [logic_tile, 1]]
+          - [[logic_tile, 0], [ptap_tile, 0]]
+
+    seg_dict:
+      dc_core:
+        in: 2
+        out: 2
+        sr: 2
+      scan_rst_flop:
+        in: 1
+        buf: 1
+        keep: 1
+        pass: 1
+        mux: 1
+        rst: 1
+        out: 1
+      so_inv: 2
+    draw_taps: NONE
+    show_pins: True
+    num_rows: 6
+    num_cols: 11
+    num_insts: 64
+    substrate_row: True
+    tile0: 1
+    tile1: 3
+    tile_vss: 0
+    tile_vdd: 2
+
+model_params:
+  XCELL<63:0>:
+    XCore:
+      XNAND_SR0: {view_name: '', delay: 20}
+      XNAND_SR1: {view_name: '', delay: 20}
+      XNAND_in: {view_name: '', delay: 20}
+      XNAND_out: {view_name: '', delay: 20}
+    XDFF:
+      XCLK: {view_name: ''}
+      XFB: {view_name: ''}
+      XIN: {view_name: ''}
+      XKEEP: {view_name: ''}
+      XMUX: {view_name: ''}
+      XNAND: {view_name: ''}
+      XOUT: {view_name: ''}
+      XPASS: {view_name: ''}
+      XRST: {view_name: ''}
+      XSE: {view_name: ''}
+      XSI: {view_name: ''}
+      XSUM0: {view_name: ''}
+      XSUM1: {view_name: ''}
+      XSUM2: {view_name: ''}
+    XSoInv0: {view_name: ''}
+    XSoInv1: {view_name: ''}
+  XDUM<1:0>:
+    XCore:
+      XNAND_SR0: {view_name: '', delay: 20}
+      XNAND_SR1: {view_name: '', delay: 20}
+      XNAND_in: {view_name: '', delay: 20}
+      XNAND_out: {view_name: '', delay: 20}
+    XDFF:
+      XCLK: {view_name: ''}
+      XFB: {view_name: ''}
+      XIN: {view_name: ''}
+      XKEEP: {view_name: ''}
+      XMUX: {view_name: ''}
+      XNAND: {view_name: ''}
+      XOUT: {view_name: ''}
+      XPASS: {view_name: ''}
+      XRST: {view_name: ''}
+      XSE: {view_name: ''}
+      XSI: {view_name: ''}
+      XSUM0: {view_name: ''}
+      XSUM1: {view_name: ''}
+      XSUM2: {view_name: ''}
+    XSoInv0: {view_name: ''}
+    XSoInv1: {view_name: ''}
