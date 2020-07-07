@@ -29,8 +29,35 @@ params:
     cls_name: aib_ams.layout.frontend.Frontend
     params:
       pinfo:
-        root_dir: data/aib_ams/specs_pinfo/ip_frontend
-        name: logic
+        lch: 36
+        top_layer: 5
+        row_specs:
+          - mos_type: nch
+            width: 8
+            threshold: lvt
+            bot_wires:
+              data:
+                - wires: ['sup', 'sig<0:3>']
+                - wires: ['sig<0>', 'padout']
+              shared: [sup]
+            top_wires: ['sig<0:3>']
+            flip: True
+          - mos_type: pch
+            width: 8
+            threshold: lvt
+            top_wires:
+              data:
+                - wires: ['sig<0:3>', 'sup']
+                - wires: ['padout', 'sig<3>']
+              shared: [sup]
+            bot_wires: ['sig<0:3>']
+        tr_widths:
+          sup: {2: 8, 3: 8, 4: 16, 5: 3}
+          sig_hs: {2: 2, 3: 3, 4: 1, 5: 2}
+          padout: {2: 2, 3: 8, 4: 8, 5: 10}
+        tr_spaces:
+          !!python/tuple ['sig_hs', '']: {2: 1, 3: 1, 4: 1, 5: 1}
+          !!python/tuple ['padout', 'sup']: {5: 1}
       ctrl_lv_params:
         seg_dict: {pu: 4, pd: 8, rst: 4}
         buf_seg_list: [4]
